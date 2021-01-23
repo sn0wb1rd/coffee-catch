@@ -2,8 +2,6 @@
 
 [Click here to see deployed game](https://github.com/sn0wb1rd/coffee-catch.git)
 
-![coffeecup](D:/ironhack/module_1/project_1/coffee.jpg)
-
 ## Description
 Coffee-catch is a perfect game for coffeelovers! Move up and down to grab the coffee and lab assigments (Labs) as they pass by. Be sure to drink enough coffee so you are able to complete enough Labs. Grab enough Labs and you win the game! You need to drink coffee for getting the labs, so make sure your coffeebar doesn't get emtpy. But don't drink too much coffee or you'll will get a coffee-overload!
 
