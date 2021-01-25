@@ -4,14 +4,14 @@ class GameItem {
         this.x = x
         this.y = y
         this.width = width
-        this.height = heigth
+        this.height = height
     };
     // derivated value xw and xh insted of directly saving it
     xw() {
         return this.x + this.width;
     };
     yh() {
-        return this.y + this.heigth;
+        return this.y + this.height;
     };
     cornerCheck(otherGameItem) {
         // check if the left upper coordinate (y,x) of other object lies ín the this.object
@@ -45,25 +45,44 @@ class GameItem {
         return false
     };
     // do the cornercheck the otherway around (using previous method)
-    checkColission(otherGameItem) {
+    checkCollision(otherGameItem) {
         return this.cornerCheck(otherGameItem) || otherGameItem.cornerCheck(this)
     }
     // move general
-    move(x, y){
-        this.x +=x
-        this.y +=y
+    move(xDistance, yDistance){
+        this.x +=xDistance
+        this.y +=yDistance
     }
-    moveVertical(y) {
-        this.move(0, y)
+    moveVertical(yDistance) {
+        this.move(0, yDistance)
     }
-    moveHorizontal(x) {
-        this.move(x,0)
+    moveHorizontal(xDistance) {
+        this.move(xDistance,0)
     }    
 };
+// temp class for rectangle dummie that extends the RectItem with the GameItems properties and methods
+class RectItem extends GameItem {
+    constructor(x, y, width, height, color){
+        super(x, y, width, height)
+        this.color = color
+    };
+    draw(canvas){
+        canvas.beginPath()
+        canvas.fillStyle = this.color
+        canvas.fillRect(this.x, this.y, this.width, this.height)
+        canvas.closePath()
+    };
+};
 
-// exten the ImgItem with the GameItems properties and methods
-class ImgItem extends GamteItem {
-
+// extend the ImgItem with the GameItems properties and methods
+class ImgItem extends GameItem {
+    constructor(x, y, width, height, imgNode){
+        super(x, y, width, height)
+        this.imgNode = imgNode
+    };
+    draw(canvas){
+        canvas.drawImage(this.imgNode, this.x, this.y, this.width, this.height)
+    };
 };
 
 
