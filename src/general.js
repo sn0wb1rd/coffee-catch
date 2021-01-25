@@ -4,16 +4,10 @@ Cindy Teeven
 Coffee Catch
 */
 
-//defining overall class for items in the gamescreen
-
-// function gameItem(x, y, image) {
-//     this.image = img;
-//     this.x = x;
-//     this.y = y;
-//     this.width = img.width;
-//     this.height = img.height;
-//     return this;
-// }
-
-
-// gameItem(20, 20, )
+//defining overall class for items in the gamescreen with respect to the increment
+function inbetween (lowerbound, upperbound, increment) {
+    lowerbound = Math.ceil(lowerbound / increment) * increment
+    upperbound = Math.floor(upperbound / increment) * increment
+    let cntSteps = ( upperbound - lowerbound ) / increment + 1
+    return lowerbound + Math.floor(Math.random()  cntSteps)  increment
+  }

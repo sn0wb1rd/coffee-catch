@@ -7,11 +7,27 @@ Coffee Catch
 let coffeeImg = document.createElement('img')
 coffeeImg.src = 'images/cappoccino.png'
 
-let incrX = 15; //defines the speed
+let incrX = 25; //defines the speed
 let axisY = [100, 200, 300, 400]
-let coffeeArr = [{x: 750, y: 100, sW:40, sH:40},
-                 {x: 750, y: 150, sW:40, sH:40}
+let coffeeArr = [{x: 750, y: axisY[0], sW:40, sH:40},
+                 {x: 750+100, y: axisY[2], sW:40, sH:40}
                 ]
+let coffeeSize = [15, 20, 30, 40]
+
+
+function checkCollosion(x, y, height, width){
+
+        // when player catches the coffee >> replaced by a class function
+        // if (itemX-itemWidth == playerX &&  // check collision at the vertical axis AND
+        //     (itemY >= playerY && itemY <= playerY+playerHeight || // check collision from with item top OR    
+        //     itemY+itemHeight >= playerY && itemY+itemHeight <= playerY+playerHeight)) // check collision from with item bottom
+        //     {
+        //     // inscrease score at coffeeBar    
+        //     coffeeBar++      
+        //     //console.log('coffeebar: ', coffeeBar)
+    
+        // }   
+}
 
 
 // try with coffee picture
@@ -30,21 +46,21 @@ function moveCoffeeCup () {
             //check if item reaches (west-end of screen)
             if (coffeeArr[i].x == 0) {
                 // add a new item at East side
+                let randomSize = coffeeSize[(Math.floor(Math.random()*coffeeSize.length))];
                 coffeeArr.push({
-                    x: gameScreen.width,
-                    y: 100 //TODO: set random from axisY
+                    x:  750 + inbetween(50, 300, 25),
+                    y:  axisY[(Math.floor(Math.random()*axisY.length))], 
+                    sW: randomSize,
+                    sH: randomSize
                 })
-
+                //console.log(coffeeArr[i])
+                
             }
-
-
         }
-        // move to the west over x with incr (veloc.) and static y
 
+        // checkCollosion()
     }
-
-
-}
+})
 
 
 

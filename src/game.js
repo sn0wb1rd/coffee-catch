@@ -19,6 +19,7 @@ gameScreen.style.border = '1px solid #56b300'
 // let sb     = scoreBord.getContext('2d')
 // scoreBord.style.border = '1px solid #56b300'
 
+
 // general variables
 let intervalID = 0;
 let isUpArrow = false;
@@ -31,12 +32,12 @@ let playerWidth = 35;
 let playerHeight = 35;
 let incrementPlayerY = 10;
 
-// draw the coffeecup (dummie object for time being)
-let itemX = 750;
-let itemY = 50;
-let itemWidth = 35;
-let itemHeight = 35;
-let incrementItemX = 15;
+// // draw the coffeecup (dummie object for time being)
+// let itemX = 750;
+// let itemY = 50;
+// let itemWidth = 35;
+// let itemHeight = 35;
+// let incrementItemX = 15;
 
 //scorebords
 let coffeeBar = 0;
@@ -90,21 +91,16 @@ function movePlayer() {
     else if (isDownArrow && (playerY + playerWidth < gameScreen.height)) {
         playerY += incrementPlayerY
     }
-
-
-
 }
 
 
 function drawAllItems() {
     gs.clearRect(0, 0, gameScreen.width, gameScreen.height)
-
-    // gs.drawImage(coffeeImg, 50, 50)
-
+    
+  
     
     movePlayer()
-
-    
+   
     // // if coffee item reaches left corner OR touches coffeeitem;
     // // let is dissapear 
     // // take into account the increment steps! (dissapears earlier)
@@ -116,28 +112,14 @@ function drawAllItems() {
 
     moveCoffeeCup()
     // console.log('itemX: ', itemX, ' / playerX: ', playerY)
-    
-    // when player catch the coffee
-    if (itemX-itemWidth == playerX &&  // check collision at the vertical axis AND
-        (itemY >= playerY && itemY <= playerY+playerHeight || // check collision from with item top OR    
-        itemY+itemHeight >= playerY && itemY+itemHeight <= playerY+playerHeight)) // check collision from with item bottom
-        {
-        coffeeBar++      
-        //console.log('coffeebar: ', coffeeBar)
 
-    }   
-    
  
 }
-
-// && itemY+itemHeight 
-
 
 function startGame(){
     intervalID = setInterval(() => {
         requestAnimationFrame(drawAllItems)
     }, 300)
 }
-
 
 startGame()
