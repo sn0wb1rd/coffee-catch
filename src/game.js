@@ -6,6 +6,7 @@ source img: https://www.gameart2d.com/
 */
 // Questions/stuck:
 
+
 // gameScreen
 let gameScreen  = document.querySelector('#game-screen')
 gameScreen.style.backgroundColor = "#f2ffe6";
@@ -30,7 +31,7 @@ let playerWidth = 35;
 let playerHeight = 35;
 let incrementPlayerY = 10;
 
-// draw the player (dummie object for time being)
+// draw the coffeecup (dummie object for time being)
 let itemX = 750;
 let itemY = 50;
 let itemWidth = 35;
@@ -72,16 +73,9 @@ function tempObjectPlayer() {
 }
 
 
-// create dummie coffee-item object
-function tempObjectCoffee() {
-    gs.beginPath()
-    gs.fillStyle = "#d9b38c"
-    // console.log(playerX + "/" + playerY + "/" + itemWidth + "/" + itemHeight)
-    gs.fillRect(itemX, itemY, itemWidth, itemHeight)
-    gs.closePath()
-}
 
-let intervallNr = 0 // for testing
+
+// let intervallNr = 0 // for testing
 
 // let player move
 function movePlayer() {
@@ -101,37 +95,26 @@ function movePlayer() {
 
 }
 
-//console.log('player', playerY)
-
-// let coffee move
-function moveCoffeeItem () {
-    intervallNr += 1 
-    console.log('intervNr coffee ', intervallNr)
-
-    tempObjectCoffee()
-
-    // check for left boundary
-    // if (itemY < 0) {
-    //     incrementItemX = -incrementItemX
-    //     console.log(itemY)
-    // }
-        
-}
 
 function drawAllItems() {
     gs.clearRect(0, 0, gameScreen.width, gameScreen.height)
-  
-    movePlayer()
-    
-    // if coffee item reaches left corner OR touches coffeeitem;
-    // let is dissapear 
-    // take into account the increment steps! (dissapears earlier)
-    if (itemX > 0) {
-        moveCoffeeItem()
-        itemX -= incrementItemX
-        console.log(itemX)
-    }  
 
+    // gs.drawImage(coffeeImg, 50, 50)
+
+    
+    movePlayer()
+
+    
+    // // if coffee item reaches left corner OR touches coffeeitem;
+    // // let is dissapear 
+    // // take into account the increment steps! (dissapears earlier)
+    // if (itemX > 0) {
+    //     moveCoffeeCup()
+    //     itemX -= incrementItemX
+    //     // console.log(itemX)
+    // }  
+
+    moveCoffeeCup()
     // console.log('itemX: ', itemX, ' / playerX: ', playerY)
     
     // when player catch the coffee
@@ -140,7 +123,7 @@ function drawAllItems() {
         itemY+itemHeight >= playerY && itemY+itemHeight <= playerY+playerHeight)) // check collision from with item bottom
         {
         coffeeBar++      
-        console.log('coffeebar: ', coffeeBar)
+        //console.log('coffeebar: ', coffeeBar)
 
     }   
     
@@ -153,7 +136,7 @@ function drawAllItems() {
 function startGame(){
     intervalID = setInterval(() => {
         requestAnimationFrame(drawAllItems)
-    }, 100)
+    }, 300)
 }
 
 
