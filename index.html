@@ -7,16 +7,53 @@
     <meta name="author" content="Cindy Teeven">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Catch</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/style.css" />
 </head>
 
 <body>
-    <button id="start">Start Game</button>
+
+    <!-- <section id="start-view">
+        <div id="test1"> scorebord</div>
+        <div id="test2">
+            <button id="start">Start Game</button>
+        </div>
+    </section> -->
+
+    <section id="start-view">
+        <button id="start">Start Game</button>
+        <div id="startcontainer">
+           Welcome to Coffee Catch!
+           <br>
+           Press start to begin!
+        </div>
+        
+    </section>
     
-    <div id="gameview">
-        <span id="scoreboard"> scorebord</div>
-        <canvas id="game-screen" width="800" height="500"></canvas>
-    </div>
+    
+    <section id="game-view">
+        <div id="scorecontainer"> 
+            scorebord
+            <div id="coffeebar">coffeebar: <span>0</span></div>
+            <div id="labscore"> labsscore: <span>0</span></div>
+        </div>
+        <div id="gamecontainer">
+            <canvas id="game-screen" width="800" height="500"></canvas>
+        </div>
+    </section>
+
+    <section id="end-view">
+        End game
+        <br>
+        <div id="startcontainer">
+            Welcome to Coffee Catch!
+            <br>
+            Press start to begin!
+         </div>
+        <button id="try-again">Try again!</button>
+    </section>
+
+
     
     
     <script src="src/general.js"></script>

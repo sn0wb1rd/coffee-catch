@@ -5,19 +5,28 @@ Coffee Catch
 source img: https://www.gameart2d.com/
 */
 // Questions/stuck:
+// why again not using selectElement by Idea insted of queryselector?
 
 class Main {
-    constructor() {
-        //this.gameview = document.getElementById("gameview")
-        this.scoreboard = document.getElementById("scoreboard")
-        this.scoreboard.style.backgroundColor = "#ffffcc";
-        this.gameScreen  = document.querySelector('#game-screen')        
-        this.gameScreen.style.backgroundColor = "#f2ffe6";
-        this.gs     = this.gameScreen.getContext('2d')
-        this.gameScreen.style.border = '1px solid #56b300'
+    constructor() {        
+        this.startView = document.querySelector('#start-view')
+        this.gameView = document.querySelector('#game-view')
+        this.endView = document.querySelector('#end-view')
 
-        // main elements
+        this.gameScreen  = document.querySelector('#game-screen')        
+        this.gs     = this.gameScreen.getContext('2d')
+
+        // general html elements
         this.startBtn = document.querySelector('#start')
+        this.strartAgainBtn = document.querySelector('#try-again')
+     
+        // score
+        this.coffeebarScoreDOM = document.querySelector('#coffeebar span')
+        this.coffeebarScoreDOM.innerText = 0 // startvalue
+        this.labsScoreDOM = document.querySelector('#labscore span')
+        this.labsScoreDOM.innerText = 0 // startvalue
+
+
      
         // general variables
         this.intervalID = 0;
@@ -57,7 +66,7 @@ class Main {
     // -------------------------------------------------------
     start() {
 
-        this.gameScreen.style.display = 'block'
+        
         this.startBtn.style.display = 'none'
 
         // add listener for up Arrow up and down
@@ -109,7 +118,6 @@ class Main {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
         this.player.draw(this.gs) // draws the player rectangle from RecItem class
         this.coffeeCups.forEach((elem) => elem.draw(this.gs))
-
     };
 
     movePlayer() {
@@ -143,7 +151,9 @@ class Main {
                 return false
               // use the player object with the checkCollision method  
             } else if (elem.checkCollision(this.player)) {
-                this.coffeeBar++                
+                this.coffeeBar++
+                this.coffeebarScoreDOM.innerText = this.coffeeBar
+
                 // set here the score of the coffeebar and labsscore
                 console.log('coffeeBar: ', this.coffeeBar)
                 this.checkWinningConditions()
@@ -164,30 +174,54 @@ class Main {
     }
 
     gameOver(){
-        //clearInterval(# all intervals);
-        clearInterval(drawIntervall); 
-        clearInterval(moveIntervall);
-        clearInterval(coffeeCupProductionIntervall);
-        clearInterval(coffeeIncrXIntervall);  
-
         console.log('game over')
-        this.gameScreen.style.display = 'none'      
+        this.startView.style.display = 'none'
+        this.gameView.style.display = 'none'
+        this.endView.style.display = ''
+
+        // set coffee- and labscore back to 0
+        this.coffeeBar = 0;
+        this.labsScore = 0;
+
+        // set end-view text
+        
+
+        //clearInterval(# all intervals);
+        clearInterval(this.drawIntervall); 
+        clearInterval(this.moveIntervall);
+        clearInterval(this.coffeeCupProductionIntervall);
+        clearInterval(this.coffeeIncrXIntervall);     
     };
 }
 
-// general DOM elements
+
+// -------------------------------------------------------------------
 let main;
 
 
 window.addEventListener('load', () => {
     main = new Main()
-    main.gameScreen.style.display = 'none'
-    // main.scoreboard.style.display = 'none'  
+    main.gameView.style.display = 'none'
+    main.endView.style.display = 'none'
+    main.startView.style.display = ''
 
 
     // start click event listener
     main.startBtn.addEventListener('click', () => {
+        main.startView.style.display = 'none'
+        main.endView.style.display = 'none'
+        main.gameView.style.display = ''
+
         main.start()
     })    
-})
 
+    // klick button for try again
+    main.strartAgainBtn.addEventListener('click', () => {
+        main.endView.style.display = 'none'
+        main.startView.style.display = 'none'
+        main.gameView.style.display = ''
+        main.start()
+    }) 
+
+})
+// -------------------------------------------------------------------
