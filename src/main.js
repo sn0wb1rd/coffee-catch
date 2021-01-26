@@ -31,11 +31,12 @@ class Main {
         this.intervalID = 0;
         this.isUpArrow = false;
         this.isDownArrow = false;
-        this.drawTimeMs = 300;
+        this.drawTimeMs = 100;
         this.drawIntervall = null;
         
         // draw the player (dummie object for time being)
         this.player = null; // null = non-existing object
+        this.playerCategory = "player"
         this.playerX = 100;
         this.playerY = 100;
         this.playerWidth = 35;
@@ -43,15 +44,28 @@ class Main {
         this.incrementPlayerY = 10;
         this.moveTimeMs = 100; // seperate checkkeys from drawing 
         this.moveIntervall = null;
-     
+
+        this.movingItems = []
+
         // // draw the coffeecup (dummie object for time being)
         this.coffeeCups = []
+        this.coffeeCategory = "coffee"
         this.coffeeCupProductionTimeMs = 1000
         this.coffeeSize = [15, 20, 30, 40]
         this.coffeeAxisY = [100, 200, 300, 400]
         this.coffeeImg = document.createElement('img')
-        this.coffeeImg.src = 'images/cappoccino.png'
+        this.coffeeImg.src = 'images/cappuccino.png'
         this.coffeeCupProductionIntervall = null;
+
+        // // draw the coffeecup (dummie object for time being)
+        this.labBooks = []
+        this.labBookCategory = "labbook"
+        this.labBookProductionTimeMs = 1000
+        this.labBookSize = [15, 20, 30, 40]
+        this.labBookAxisY = [100, 200, 300, 400]
+        this.labBookImg = document.createElement('img')
+        this.labBookImg.src = 'images/book.png'
+        this.labBookCupProductionIntervall = null;
 
         this.coffeeTimeoutMs = 10;
         this.coffeeIncrX = 1;
@@ -90,7 +104,7 @@ class Main {
         })
 
         // create dummie player by creating RectItem object
-        this.player = new RectItem(this.playerX, this.playerY, this.playerWidth, this.playerHeight, "#006600")
+        this.player = new RectItem(this.playerX, this.playerY, this.playerWidth, this.playerHeight, this.playerCategory, "#006600")
 
         // set intervals for draws and movements ----------------------------------
         // the intervals HAS to be in an function, otherwise 'this' falls out of scope..
@@ -110,11 +124,13 @@ class Main {
         // interval for creating coffeecups
         this.coffeeCupProductionIntervall = setInterval(() => {
             this.produceCoffeeCup()
+            this.produceLabBoook()
         }, this.coffeeCupProductionTimeMs)
 
-        // interval for moving the coffeecups
+        // interval for moving the coffeecups ans labbooks
         this.coffeeIncrXIntervall = setInterval(() => {
             this.moveCoffeeCups()
+            this.moveLabBooks()
         }, this.coffeeTimeoutMs)
         // -------------------------------------------------------------------------
     }
@@ -123,6 +139,8 @@ class Main {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
         this.player.draw(this.gs) // draws the player rectangle from RecItem class
         this.coffeeCups.forEach((elem) => elem.draw(this.gs))
+        this.labBooks.forEach((elem) => elem.draw(this.gs))
+
     };
 
     movePlayer() {
@@ -141,10 +159,24 @@ class Main {
             this.coffeeAxisY[(Math.floor(Math.random()*this.coffeeAxisY.length))],
             randomSize,
             randomSize,
+            this.coffeeCategory,
             this.coffeeImg);
         this.coffeeCups.push(coffeeCup)
     };
 
+    produceLabBoook() {
+        let randomSize = this.coffeeSize[(Math.floor(Math.random()*this.coffeeSize.length))];
+        let labBook = new ImgItem(
+            this.gameScreen.width - randomSize +10, 
+            this.coffeeAxisY[Math.floor(Math.random()*this.coffeeAxisY.length)] + 10,
+            randomSize,
+            randomSize,
+            this.labBookCategory,
+            this.labBookImg);
+        this.labBooks.push(labBook)
+    };
+
+    // TODO make generic
     moveCoffeeCups() {
         this.coffeeCups.forEach((elem) => {
             elem.moveHorizontal(-this.coffeeIncrX)  // minus because it moves to the west
@@ -169,15 +201,50 @@ class Main {
         })        
     };
 
+    // TODO make generic together with coffeecup
+    moveLabBooks() {
+        this.labBooks.forEach((elem) => {
+            elem.moveHorizontal(-this.coffeeIncrX)  // minus because it moves to the west
+        })
+
+        // filter out all the items that reached the west-border or collide with the player
+        this.labBooks = this.labBooks.filter((elem) => {
+            if(elem.x <= 0) {
+                return false
+                // use the player object with the checkCollision method  
+            } else if (elem.checkCollision(this.player)) {
+                this.labsScore++
+                this.labsScoreDOM.innerText = this.labsScore
+
+                // set here the score of the coffeebar and labsscore
+                console.log('coffeeBar: ', this.labsScore)
+                this.checkWinningConditions()
+                return false
+            } else {
+                return true
+            };           
+        })        
+    };
+
     checkWinningConditions(){
-        if (this.labsScore >= 5) {
+        if ((this.coffeeBar >= 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
+            this.wingame = false
+            this.gameOver(this.wingame)
+        } else if (this.labsScore >= 8) {
             console.log('won game') // test
             this.wingame = true
             this.gameOver(this.wingame)
-        } else if ((this.coffeeBar > 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
-            this.wingame = false
-            this.gameOver(this.wingame)
         };
+
+        // old code
+        // if (this.labsScore >= 5) {
+        //     console.log('won game') // test
+        //     this.wingame = true
+        //     this.gameOver(this.wingame)
+        // } else if ((this.coffeeBar > 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
+        //     this.wingame = false
+        //     this.gameOver(this.wingame)
+        // };
     }
 
     gameOver(wingame){
@@ -208,6 +275,7 @@ class Main {
         clearInterval(this.moveIntervall);
         clearInterval(this.coffeeCupProductionIntervall);
         clearInterval(this.coffeeIncrXIntervall);     
+        clearInterval(this.labScoreCupProductionIntervall);
     };
 }
 

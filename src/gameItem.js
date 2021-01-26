@@ -1,10 +1,11 @@
 // Do a cornercheck van two items for collision, on both ways. It also accounts for objects that differ in sizes
 class GameItem {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, category) {
         this.x = x
         this.y = y
         this.width = width
         this.height = height
+        this.category = category
     };
     // derivated value xw and xh insted of directly saving it
     xw() {
@@ -62,8 +63,8 @@ class GameItem {
 };
 // temp class for rectangle dummie that extends the RectItem with the GameItems properties and methods
 class RectItem extends GameItem {
-    constructor(x, y, width, height, color){
-        super(x, y, width, height)
+    constructor(x, y, width, height, category, color){
+        super(x, y, width, height, category)
         this.color = color
     };
     draw(canvas){
@@ -76,8 +77,8 @@ class RectItem extends GameItem {
 
 // extend the ImgItem with the GameItems properties and methods
 class ImgItem extends GameItem {
-    constructor(x, y, width, height, imgNode){
-        super(x, y, width, height)
+    constructor(x, y, width, height, category, imgNode){
+        super(x, y, width, height, category)
         this.imgNode = imgNode
     };
     draw(canvas){
