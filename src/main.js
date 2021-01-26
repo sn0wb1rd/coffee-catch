@@ -18,15 +18,14 @@ class Main {
 
         // general html elements
         this.startBtn = document.querySelector('#start')
-        this.strartAgainBtn = document.querySelector('#try-again')
+        this.startAgainBtn = document.querySelector('#start-again')
+        this.endcontainerDOM = document.querySelector('#endcontainer span')
      
         // score
         this.coffeebarScoreDOM = document.querySelector('#coffeebar span')
         this.coffeebarScoreDOM.innerText = 0 // startvalue
         this.labsScoreDOM = document.querySelector('#labscore span')
         this.labsScoreDOM.innerText = 0 // startvalue
-
-
      
         // general variables
         this.intervalID = 0;
@@ -71,11 +70,15 @@ class Main {
 
         // add listener for up Arrow up and down
         document.addEventListener('keydown', (event) => {
-            if (event.keyCode == 38 || event.key == "ArrowUp") {
+            if (event.keyCode == 38 || event.key == "ArrowUp" ||
+                event.keyCode == 87 || event.key == "W" 
+                ) {
                 this.isUpArrow = true;
                 this.isDownArrow = false;
             }
-            else if (event.keyCode == 40 || event.key == "ArrowDown" ) {
+            else if (event.keyCode == 40 || event.key == "ArrowDown" ||
+                     event.keyCode == 83 || event.key == "ArrowDown"             
+                ) {
                 this.isUpArrow = false;
                 this.isDownArrow = true;
             }
@@ -91,6 +94,8 @@ class Main {
 
         // set intervals for draws and movements ----------------------------------
         // the intervals HAS to be in an function, otherwise 'this' falls out of scope..
+
+        // TO create one interval?
 
         //drawing the player
         this.drawIntervall = setInterval(() => {
@@ -166,14 +171,16 @@ class Main {
 
     checkWinningConditions(){
         if (this.labsScore >= 5) {
-            console.log('won game')
-            this.gameOver()
+            console.log('won game') // test
+            this.wingame = true
+            this.gameOver(this.wingame)
         } else if ((this.coffeeBar > 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
-            this.gameOver()
+            this.wingame = false
+            this.gameOver(this.wingame)
         };
     }
 
-    gameOver(){
+    gameOver(wingame){
         console.log('game over')
         this.startView.style.display = 'none'
         this.gameView.style.display = 'none'
@@ -184,7 +191,17 @@ class Main {
         this.labsScore = 0;
 
         // set end-view text
-        
+        if(this.wingame){
+            this.endcontainerDOM.innerText = "Congrats, You win! You've got the perfect balans between coffee and completing the labs."
+            this.startAgainBtn.innerText = "Play again!"
+            console.log('yeey you win!') // test
+
+        } else {
+            this.endcontainerDOM.innerText = "Aahw you loose.."
+            this.startAgainBtn.innerText = "Try again?"
+            console.log('aaah you loose') // test
+        }
+
 
         //clearInterval(# all intervals);
         clearInterval(this.drawIntervall); 
@@ -198,6 +215,7 @@ class Main {
 // -------------------------------------------------------------------
 let main;
 
+// TODOdo refactor style.displays
 
 window.addEventListener('load', () => {
     main = new Main()
@@ -216,7 +234,7 @@ window.addEventListener('load', () => {
     })    
 
     // klick button for try again
-    main.strartAgainBtn.addEventListener('click', () => {
+    main.startAgainBtn.addEventListener('click', () => {
         main.endView.style.display = 'none'
         main.startView.style.display = 'none'
         main.gameView.style.display = ''

@@ -13,45 +13,42 @@
 
 <body>
 
-    <!-- <section id="start-view">
-        <div id="test1"> scorebord</div>
-        <div id="test2">
-            <button id="start">Start Game</button>
-        </div>
-    </section> -->
-
-    <section id="start-view">
-        <button id="start">Start Game</button>
-        <div id="startcontainer">
-           Welcome to Coffee Catch!
-           <br>
-           Press start to begin!
-        </div>
+    <div id="top-container">
         
-    </section>
+        <section id="start-view">            
+            <div id="startcontainer" class="space">
+               Welcome to Coffee Catch!
+               <br>
+               Use arrow up and down OR 'W' ans 'S' for moving the player
+               <br>
+               Press button to begin!
+            </div>
+            <button id="start" class="button">Start Game!</button>
+            
+        </section>
+        
+        
+        <section id="game-view">
+            <div id="scorecontainer"> 
+                scorebord
+                <div id="coffeebar">coffeebar: <span>0</span></div>
+                <div id="labscore"> labsscore: <span>0</span></div>
+            </div>
+            <div id="gamecontainer">
+                <canvas id="game-screen" width="800" height="500"></canvas>
+            </div>
+        </section>
     
+        <section id="end-view">
+            <div id="endcontainer" class="space">
+                <span></span>
+            </div>
+            <button id="start-again" class="button">Try again!</button>
+        </section>
     
-    <section id="game-view">
-        <div id="scorecontainer"> 
-            scorebord
-            <div id="coffeebar">coffeebar: <span>0</span></div>
-            <div id="labscore"> labsscore: <span>0</span></div>
-        </div>
-        <div id="gamecontainer">
-            <canvas id="game-screen" width="800" height="500"></canvas>
-        </div>
-    </section>
 
-    <section id="end-view">
-        End game
-        <br>
-        <div id="startcontainer">
-            Welcome to Coffee Catch!
-            <br>
-            Press start to begin!
-         </div>
-        <button id="try-again">Try again!</button>
-    </section>
+    </div>
+
 
 
     
