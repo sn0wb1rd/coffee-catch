@@ -39,7 +39,7 @@ class Main {
         this.playerCategory = "player"
         this.playerImg = document.createElement('img')
         //this.playerMaleImg.src = 'images/player_male_40x50.png' 
-        this.playerImg.src = 'images/player_female_40x46.png'        
+        this.playerImg.src = './images/player_female_40x46.png'        
         this.playerX = 100;
         this.playerY = 100;
         this.playerWidth = 40;
@@ -58,7 +58,7 @@ class Main {
         this.coffeeSize = [15, 20, 30, 40]
         this.coffeeAxisY = [100, 200, 300, 400]
         this.coffeeImg = document.createElement('img')
-        this.coffeeImg.src = 'images/coffee.png'
+        this.coffeeImg.src = './images/coffee.png'
         this.coffeeCupProductionIntervall = null;
 
         // draw the coffeecup (dummie object for time being)
@@ -68,7 +68,7 @@ class Main {
         this.labBookSize = [15, 20, 30, 40]
         this.labBookAxisY = [100, 200, 300, 400]
         this.labBookImg = document.createElement('img')
-        this.labBookImg.src = 'images/book.png'
+        this.labBookImg.src = './images/book.png'
         this.labBookCupProductionIntervall = null;
 
         this.coffeeTimeoutMs = 10;
