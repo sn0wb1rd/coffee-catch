@@ -34,30 +34,34 @@ class Main {
         this.drawTimeMs = 100;
         this.drawIntervall = null;
         
-        // draw the player (dummie object for time being)
+        // draw the player 
         this.player = null; // null = non-existing object
         this.playerCategory = "player"
+        this.playerImg = document.createElement('img')
+        //this.playerMaleImg.src = 'images/player_male_40x50.png' 
+        this.playerImg.src = 'images/player_female_40x46.png'        
         this.playerX = 100;
         this.playerY = 100;
-        this.playerWidth = 35;
-        this.playerHeight = 35;
+        this.playerWidth = 40;
+        this.playerHeight = 46;
         this.incrementPlayerY = 10;
         this.moveTimeMs = 100; // seperate checkkeys from drawing 
         this.moveIntervall = null;
 
+        // Items ------------------------------------------------
         this.movingItems = []
 
-        // // draw the coffeecup (dummie object for time being)
+        // draw the coffeecup 
         this.coffeeCups = []
         this.coffeeCategory = "coffee"
         this.coffeeCupProductionTimeMs = 1000
         this.coffeeSize = [15, 20, 30, 40]
         this.coffeeAxisY = [100, 200, 300, 400]
         this.coffeeImg = document.createElement('img')
-        this.coffeeImg.src = 'images/cappuccino.png'
+        this.coffeeImg.src = 'images/coffee.png'
         this.coffeeCupProductionIntervall = null;
 
-        // // draw the coffeecup (dummie object for time being)
+        // draw the coffeecup (dummie object for time being)
         this.labBooks = []
         this.labBookCategory = "labbook"
         this.labBookProductionTimeMs = 1000
@@ -79,7 +83,7 @@ class Main {
     // -------------------------------------------------------
     start() {
 
-        
+        // make sure the gamescreen is visible
         this.startBtn.style.display = 'none'
 
         // add listener for up Arrow up and down
@@ -103,13 +107,12 @@ class Main {
             this.isDownArrow = false;
         })
 
-        // create dummie player by creating RectItem object
-        this.player = new RectItem(this.playerX, this.playerY, this.playerWidth, this.playerHeight, this.playerCategory, "#006600")
+        // DRAW rectangle - create dummie player by creating RectItem object
+        this.player = new ImgItem(this.playerX, this.playerY, this.playerWidth, this.playerHeight, this.playerCategory, this.playerImg)
 
         // set intervals for draws and movements ----------------------------------
         // the intervals HAS to be in an function, otherwise 'this' falls out of scope..
-
-        // TO create one interval?
+        // TODO create one interval?
 
         //drawing the player
         this.drawIntervall = setInterval(() => {
@@ -151,7 +154,7 @@ class Main {
             this.player.moveVertical(this.incrementPlayerY)
         }
     };
-
+    
     produceCoffeeCup() {
         let randomSize = this.coffeeSize[(Math.floor(Math.random()*this.coffeeSize.length))];
         let coffeeCup = new ImgItem(
@@ -215,6 +218,8 @@ class Main {
             } else if (elem.checkCollision(this.player)) {
                 this.labsScore++
                 this.labsScoreDOM.innerText = this.labsScore
+                this.coffeeBar--
+                this.coffeebarScoreDOM.innerText = this.coffeeBar
 
                 // set here the score of the coffeebar and labsscore
                 console.log('coffeeBar: ', this.labsScore)
@@ -227,7 +232,8 @@ class Main {
     };
 
     checkWinningConditions(){
-        if ((this.coffeeBar >= 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
+        if ((this.coffeeBar > 5) || (this.coffeeBar < 0)){
+            console.log('lost game') // test
             this.wingame = false
             this.gameOver(this.wingame)
         } else if (this.labsScore >= 8) {
@@ -235,16 +241,6 @@ class Main {
             this.wingame = true
             this.gameOver(this.wingame)
         };
-
-        // old code
-        // if (this.labsScore >= 5) {
-        //     console.log('won game') // test
-        //     this.wingame = true
-        //     this.gameOver(this.wingame)
-        // } else if ((this.coffeeBar > 5) || (this.coffeeBar <= 0 && this.labsScore == 1)){
-        //     this.wingame = false
-        //     this.gameOver(this.wingame)
-        // };
     }
 
     gameOver(wingame){
@@ -256,17 +252,25 @@ class Main {
         // set coffee- and labscore back to 0
         this.coffeeBar = 0;
         this.labsScore = 0;
+        this.labsScoreDOM.innerText = this.labsScore
+        this.coffeebarScoreDOM.innerText = this.coffeeBar
 
         // set end-view text
         if(this.wingame){
-            this.endcontainerDOM.innerText = "Congrats, You win! You've got the perfect balans between coffee and completing the labs."
+            this.endcontainerDOM.innerText = "Congrats, You win! You've found the perfect balans between coffee and completing the labs."
             this.startAgainBtn.innerText = "Play again!"
             console.log('yeey you win!') // test
+             // set coffee- and labscore back to 0
+            this.coffeeBar = 0;
+            this.labsScore = 0;
 
         } else {
             this.endcontainerDOM.innerText = "Aahw you loose.."
             this.startAgainBtn.innerText = "Try again?"
             console.log('aaah you loose') // test
+            // set coffee- and labscore back to 0
+            this.coffeeBar = 0;
+            this.labsScore = 0;
         }
 
 
