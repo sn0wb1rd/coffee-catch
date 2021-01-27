@@ -58,7 +58,7 @@ class Main {
         this.coffeeSize = [15, 20, 30, 40]
         this.coffeeAxisY = [100, 200, 300, 400]
         this.coffeeImg = document.createElement('img')
-        this.coffeeImg.src = './images/coffee.png'
+        this.coffeeImg.src = './images/coffeeCup.png'
         this.coffeeCupProductionIntervall = null;
 
         // draw the coffeecup (dummie object for time being)
