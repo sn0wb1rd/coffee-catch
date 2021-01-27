@@ -33,6 +33,7 @@
     margin: 5em;
 }
 
+
 #end-view{
     display: center;  
     justify-content: center;
@@ -43,17 +44,19 @@
 #scorecontainer {
     height: 500px;
     width: 200px;
-    background-color: #ffffcc;
-    border: 3px solid #56b300; 
+    background-color: #e2c188;
+    border: 5px solid #AE791E; 
     border-radius: 3px;
 }
 
 #gamecontainer {
     height: 500px;
     width: 805px;
-    background-color: #f2ffe6;
-    border: 3px solid #56b300; 
+    /* background-color: #f2ffe6; */
+    border: 5px solid #925B00; 
     border-radius: 3px;
+    background: no-repeat url("../images/bg_board_800x500.png");
+    background-clip: border-box;
 }
 
 .button {

@@ -85,6 +85,7 @@ class Main {
 
         // make sure the gamescreen is visible
         this.startBtn.style.display = 'none'
+        
 
         // add listener for up Arrow up and down
         document.addEventListener('keydown', (event) => {
@@ -138,12 +139,15 @@ class Main {
         // -------------------------------------------------------------------------
     }
 
+    
+
     drawAllItems() {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
         this.player.draw(this.gs) // draws the player rectangle from RecItem class
         this.coffeeCups.forEach((elem) => elem.draw(this.gs))
         this.labBooks.forEach((elem) => elem.draw(this.gs))
-
+        
+        
     };
 
     movePlayer() {
