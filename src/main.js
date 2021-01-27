@@ -71,7 +71,7 @@ class Main {
         this.labBookImg.src = './images/book.png'
         this.labBookCupProductionIntervall = null;
 
-        this.coffeeTimeoutMs = 10;
+        this.coffeeTimeoutMs = 20;
         this.coffeeIncrX = 1;
         this.coffeeIncrXIntervall = null;
         
@@ -174,8 +174,8 @@ class Main {
     produceLabBoook() {
         let randomSize = this.coffeeSize[(Math.floor(Math.random()*this.coffeeSize.length))];
         let labBook = new ImgItem(
-            this.gameScreen.width - randomSize +10, 
-            this.coffeeAxisY[Math.floor(Math.random()*this.coffeeAxisY.length)] + 10,
+            this.gameScreen.width - randomSize, 
+            this.coffeeAxisY[Math.floor(Math.random()*this.coffeeAxisY.length)] -50,
             randomSize,
             randomSize,
             this.labBookCategory,
@@ -268,8 +268,13 @@ class Main {
             this.coffeeBar = 0;
             this.labsScore = 0;
 
-        } else {
-            this.endcontainerDOM.innerText = "Aahw you loose.."
+        } else {            
+            if (this.coffeeBar = 5) {
+                this.endcontainerDOM.innerText = "Aahw you loose.. coffee overload!"
+            } else {
+                this.endcontainerDOM.innerText = "Aahw you loose.. ran out of coffee"
+
+            };
             this.startAgainBtn.innerText = "Try again?"
             console.log('aaah you loose') // test
             // set coffee- and labscore back to 0
