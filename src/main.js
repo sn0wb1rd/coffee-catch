@@ -40,7 +40,7 @@ class Main {
         this.playerCategory = "player"
         this.playerImg = document.createElement('img')
         //this.playerMaleImg.src = 'images/player_male_40x50.png' 
-        this.playerImg.src = './images/player_female_40x46.png'        
+        this.playerImg.src = ''        
         this.playerX = 100;
         this.playerY = 100;
         this.playerWidth = 40;
@@ -92,6 +92,15 @@ class Main {
     // -------------------------------------------------------
     start() {
         // load the chosen player image
+        if (document.querySelector('#btnradio1').checked){
+            this.playerImg.src = './images/player_blue.png'   
+        } else if (document.querySelector('#btnradio2').checked){
+            this.playerImg.src = './images/player_yellow.png' 
+        } else if (document.querySelector('#btnradio2').checked){
+            this.playerImg.src = './images/player_red.png'
+        } else {
+            this.playerImg.src = './images/player_yellow.png' // just in case this change in img names
+        }
 
         // make sure the gamescreen is visible
         this.startBtn.style.display = 'none'
@@ -294,7 +303,7 @@ class Main {
         if(this.wingame){
             this.endcontainerDOM.innerText = "Congrats, You win! You've found the perfect balans between coffee and completing the labs."
             this.startAgainBtn.innerText = "Play again!"
-            console.log('yeey you win!') // test
+            console.log('yeey you win!') // check
 
         } else {            
             if (this.coffeeBar >= this.maxCoffeeScore) {
@@ -303,16 +312,17 @@ class Main {
                 this.endcontainerDOM.innerText = "Aahw you loose.. you ran out of coffee"
             };
             this.startAgainBtn.innerText = "Try again?"
-            console.log('aaah you loose') // test
-            // set coffee- and labscore back to 0
-            this.coffeeBar = 0;
-            this.labsScore = 0;
-                       
+            console.log('aaah you loose') // check                      
         }
         
+        // set values back to 0
         this.coffeeCups.splice(0, this.coffeeCups.length)
         this.labBooks.splice(0, this.labBooks.length)
         this.drawAllItems()
+        this.coffeeBar = 0;
+        this.labsScore = 0; 
+        this.coffeebarScoreDOM.innerText = 0
+        this.labsScoreDOM.innerText = 0
 
         //clearInterval(# all intervals);
         clearInterval(this.drawIntervall); 

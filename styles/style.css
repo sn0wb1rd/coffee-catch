@@ -24,11 +24,11 @@ h4 {
 
 #startcontainer img {
     height: 4em;
-    margin-right: 0em;
+    margin-right: 1em;
 }
 
 #player-blue, #player-green {
-    height: 4em;    
+    margin-right: 0em;   
 }
 
 #top-container {
