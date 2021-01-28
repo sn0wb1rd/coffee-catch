@@ -74,4 +74,4 @@ Coffee-catch is a perfect game for coffeelovers! Move up and down to grab the co
 - [Trello Link](https://trello.com/b/X8J2wJHS/coffee-catch)
 - [Slides Link](https://slides.com/cindytvn/coffee-catch/fullscreen)
 - [Github repository Link](https://github.com/sn0wb1rd/coffee-catch)
-- [Deployment Link](https://github.com/sn0wb1rd/coffee-catch.git)
+- [Deployment Link](https://sn0wb1rd.github.io/coffee-catch/)

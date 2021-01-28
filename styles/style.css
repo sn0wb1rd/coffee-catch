@@ -4,11 +4,27 @@
 }
 
 h2 {
-    text-align: center;
+    font-size: 1.5em;
+    color: #E26231;      
 }
 
 h3 {
+    font-size: 1.3em;
+    color: #5C2E00;
+    font-weight: bold;
+    text-align:center;
+
+}
+
+h4 {
     font-size: 1em;
+    color: #5C2E00;
+    font-size: bold;
+    text-align:center;
+}
+
+#startcontainer img {
+    height: 4em;
 }
 
 #top-container {
@@ -18,14 +34,14 @@ h3 {
     background: #ffffcc;
     background: linear-gradient( to bottom, #f8f2ec, #c38e55);
     width: 100%;
-    height: 800px;
+    height: 900px;
 }
 
 #start-view {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 10em;
+    margin-top: 5em;
     height: 100%;
 }
 
