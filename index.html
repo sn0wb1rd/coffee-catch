@@ -36,22 +36,27 @@
 
                 <br>
                 <hr />
-                <h2>Choose your player:</h2>
-
- 
-
-                <input id="radio-1" name="radio" type="radio" checked>
-                <label for="radio-1" class="radio-label">Blue
-                    <img for="radio-1" class="radio-label" id="player-blue" src="images/player_female_jump.png" alt="image blue player"></label>    
-                
-                <label  for="radio-2" class="radio-label">
-                    <img  id="player-green"  class="radio-btn radio-label" src="images/player_male_jump.png" alt="image green player">Green</label>
-                <input id="radio-2" name="radio" type="radio">
+                <h2>Choose your player:</h2> 
+                <br>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="btnradio1">
+                        <img for="radio-1" class="radio-label" id="player-blue" src="images/player_female_jump.png" alt="image blue player">
+                        <br>Team Instinct </label>
+                  
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="btnradio2">
+                        <img for="radio-1" class="radio-label" id="player-blue" src="images/player_female_jump.png" alt="image blue player">
+                        <br>Team Mystic</label>
+                  
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="btnradio3">
+                        <img for="radio-1" class="radio-label" id="player-blue" src="images/player_male_jump.png" alt="image blue player">
+                        <br>Team Valor</label>
+                </div>
                 
                 <hr/>
 
-                <div class="radio">
-                  </div>
 
                 <div>
                     <button id="start" class="button">Start Game!</button>                    

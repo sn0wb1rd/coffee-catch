@@ -4,8 +4,6 @@ Cindy Teeven
 Coffee Catch
 source img: https://www.gameart2d.com/
 */
-// Questions/stuck:
-// why again not using selectElement by Idea insted of queryselector?
 
 class Main {
     constructor() {       
@@ -21,7 +19,6 @@ class Main {
         this.startAgainBtn = document.querySelector('#start-again')
         this.endcontainerDOM = document.querySelector('#endcontainer span')
         this.playerGreenDOM = document.querySelector('#player-green')
-        this.playerBlueDOM = document.querySelector('#player-blue')
      
         // score html elements
         this.coffeebarScoreDOM = document.querySelector('#coffeebar span')
@@ -48,7 +45,9 @@ class Main {
         this.playerY = 100;
         this.playerWidth = 40;
         this.playerHeight = 46;
-        this.incrementPlayerY = 10;
+        this.maxIncrementPlayerY = 10;
+        this.incrementPlayerStep = 1;
+        this.currentIncrementPlayer = 0;
         this.moveTimeMs = 100; // seperate checkkeys from drawing 
         this.moveIntervall = null;
 
@@ -92,6 +91,7 @@ class Main {
 
     // -------------------------------------------------------
     start() {
+        // load the chosen player image
 
         // make sure the gamescreen is visible
         this.startBtn.style.display = 'none'
@@ -157,16 +157,23 @@ class Main {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
         this.player.draw(this.gs) // draws the player rectangle from RecItem class
         this.coffeeCups.forEach((elem) => elem.draw(this.gs))
-        this.labBooks.forEach((elem) => elem.draw(this.gs))           
+        this.labBooks.forEach((elem) => elem.draw(this.gs))
     };
 
     movePlayer() {
-        if (this.isUpArrow && (this.player.y > 0)) {
-            this.player.moveVertical(-this.incrementPlayerY) // minus since we're moving up
+        if (this.currentIncrementPlayer < this.maxIncrementPlayerY &&
+            this.isDownArrow) {
+            this.currentIncrementPlayer += this.incrementPlayerStep;
         }
-        else if (this.isDownArrow && (this.player.y + this.playerWidth < this.gameScreen.height)) {
-            this.player.moveVertical(this.incrementPlayerY)
+        if (this.currentIncrementPlayer > -this.maxIncrementPlayerY &&
+            this.isUpArrow) {
+            this.currentIncrementPlayer -= this.incrementPlayerStep;
         }
+        if (this.player.y + this.currentIncrementPlayer < 0 ||
+            this.player.y + this.currentIncrementPlayer + this.player.height > this.gameScreen.height) {
+                this.currentIncrementPlayer = -this.currentIncrementPlayer;
+        }
+        this.player.moveVertical(this.currentIncrementPlayer) // minus since we're moving up
     };
     
     produceCoffeeCup() {
@@ -280,9 +287,6 @@ class Main {
         this.gameView.style.display = 'none'
         this.endView.style.display = ''
 
-        // set coffee- and labscore back to 0
-        this.coffeeBar = 0;
-        this.labsScore = 0;
         this.labsScoreDOM.innerText = this.labsScore
         this.coffeebarScoreDOM.innerText = this.coffeeBar
 
@@ -291,12 +295,9 @@ class Main {
             this.endcontainerDOM.innerText = "Congrats, You win! You've found the perfect balans between coffee and completing the labs."
             this.startAgainBtn.innerText = "Play again!"
             console.log('yeey you win!') // test
-             // set coffee- and labscore back to 0
-            this.coffeeBar = 0;
-            this.labsScore = 0;
 
         } else {            
-            if (this.coffeeBar == this.maxCoffeeScore) {
+            if (this.coffeeBar >= this.maxCoffeeScore) {
                 this.endcontainerDOM.innerText = "Aahw you loose.. coffee overload!"
             } else {
                 this.endcontainerDOM.innerText = "Aahw you loose.. you ran out of coffee"
@@ -306,8 +307,12 @@ class Main {
             // set coffee- and labscore back to 0
             this.coffeeBar = 0;
             this.labsScore = 0;
+                       
         }
-
+        
+        this.coffeeCups.splice(0, this.coffeeCups.length)
+        this.labBooks.splice(0, this.labBooks.length)
+        this.drawAllItems()
 
         //clearInterval(# all intervals);
         clearInterval(this.drawIntervall); 

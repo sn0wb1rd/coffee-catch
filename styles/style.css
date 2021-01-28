@@ -45,7 +45,7 @@ h4 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 5em;
+    margin-top: 2em;
     height: 100%;
 }
 
@@ -117,8 +117,9 @@ h4 {
     background: linear-gradient(#bd5a13 50%, #863c07 50%);
 }
 
-#radio-1 {
-    background: no-repeat url("../images/player_female_jump.png");
+/* radio */
+.btn-group {
+    background-color:#D6B18B ;
 }
 
 
@@ -150,3 +151,4 @@ h4 {
     height: 0%; 
     border: none;
 }
+
