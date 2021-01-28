@@ -21,7 +21,7 @@ class Main {
         this.startAgainBtn = document.querySelector('#start-again')
         this.endcontainerDOM = document.querySelector('#endcontainer span')
      
-        // score
+        // score html elements
         this.coffeebarScoreDOM = document.querySelector('#coffeebar span')
         this.coffeebarScoreDOM.innerText = 0 // startvalue
         this.labsScoreDOM = document.querySelector('#labscore span')
@@ -33,6 +33,7 @@ class Main {
         this.isDownArrow = false;
         this.drawTimeMs = 100;
         this.drawIntervall = null;
+        this.maxCoffeeScore = 5;
         
         // draw the player 
         this.player = null; // null = non-existing object
@@ -63,8 +64,7 @@ class Main {
 
         this.coffeeTimeoutMs = 20;
         this.coffeeIncrX = 1;
-        this.coffeeIncrXIntervall = null;
-        
+        this.coffeeIncrXIntervall = null;        
 
         // draw the coffeecup (dummie object for time being)
         this.labBooks = []
@@ -78,12 +78,12 @@ class Main {
 
         this.labBookTimeoutMs = 20;
         this.labBookIncrX = 2;
-        this.labBookIncrXIntervall = null;
-        
+        this.labBookIncrXIntervall = null;        
         
         //scorebords
         this.coffeeBar = 0;
         this.labsScore = 0;
+        this.progressCoffeeBarDOM = document.querySelector('#coffee-progress-bar')
     }
 
     // -------------------------------------------------------
@@ -147,11 +147,7 @@ class Main {
             this.moveLabBooks()
         }, this.labBookTimeoutMs)
         // -------------------------------------------------------------------------
-    }
-
-    
-
-    
+    }   
 
     drawAllItems() {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
@@ -207,6 +203,8 @@ class Main {
             } else if (elem.checkCollision(this.player)) {
                 this.coffeeBar++
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
+                console.log(this.coffeeBar)
+                this.setCoffeeProgressBar(this.coffeeBar)
 
                 // set here the score of the coffeebar and labsscore
                 this.checkWinningConditions()
@@ -233,8 +231,7 @@ class Main {
                 this.labsScoreDOM.innerText = this.labsScore
                 this.coffeeBar--
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
-
-                // set here the score of the coffeebar and labsscore
+                               // set here the score of the coffeebar and labsscore
                 console.log('coffeeBar: ', this.coffeeBar)
                 this.checkWinningConditions()
                 return false
@@ -245,13 +242,28 @@ class Main {
     };
 
     checkWinningConditions(){
-        if ((this.coffeeBar > 5) || (this.coffeeBar < 0)){
+        if ((this.coffeeBar > this.maxCoffeeScore) || (this.coffeeBar < 0)){
             this.wingame = false
             this.gameOver(this.wingame)
         } else if (this.labsScore >= 8) {
             this.wingame = true
             this.gameOver(this.wingame)
         };
+    }
+
+    setCoffeeProgressBar(coffeeBarScore){
+        // get fraction of max coffees
+        let fraction = 100 / this.maxCoffeeScore
+        console.log('check progressBar ', fraction)
+
+        if (coffeeBarScore ===  1) {
+            console.log('check')
+            this.progressCoffeeBarDOM.style.height = '20%'
+            this.progressCoffeeBarDOM.style.top = '80%'
+        } else {
+            console.log('bla')
+        }
+
     }
 
     gameOver(wingame){
@@ -276,7 +288,7 @@ class Main {
             this.labsScore = 0;
 
         } else {            
-            if (this.coffeeBar == 5) {
+            if (this.coffeeBar == this.maxCoffeeScore) {
                 this.endcontainerDOM.innerText = "Aahw you loose.. coffee overload!"
             } else {
                 this.endcontainerDOM.innerText = "Aahw you loose.. you ran out of coffee"
