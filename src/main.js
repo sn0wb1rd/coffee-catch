@@ -48,7 +48,7 @@ class Main {
         this.maxIncrementPlayerY = 10;
         this.incrementPlayerStep = 1;
         this.currentIncrementPlayer = 0;
-        this.moveTimeMs = 100; // seperate checkkeys from drawing 
+        this.moveTimeMs = 50; // seperate checkkeys from drawing 
         this.moveIntervall = null;
 
         // Items ------------------------------------------------
@@ -57,9 +57,9 @@ class Main {
         // draw the coffeecup 
         this.coffeeCups = []
         this.coffeeCategory = "coffee"
-        this.coffeeCupProductionTimeMs = 2000
+        this.coffeeCupProductionTimeMs = 1000
         this.coffeeSize = [15, 20, 30, 40]
-        this.coffeeAxisY = [100, 200, 300, 400]
+        this.coffeeAxisY = [100, 150, 200, 250, 300, 400]
         this.coffeeImg = document.createElement('img')
         this.coffeeImg.src = './images/coffeeCup.png'
         this.coffeeCupProductionIntervall = null;
@@ -96,7 +96,7 @@ class Main {
             this.playerImg.src = './images/player_blue.png'   
         } else if (document.querySelector('#btnradio2').checked){
             this.playerImg.src = './images/player_yellow.png' 
-        } else if (document.querySelector('#btnradio2').checked){
+        } else if (document.querySelector('#btnradio3').checked){
             this.playerImg.src = './images/player_red.png'
         } else {
             this.playerImg.src = './images/player_yellow.png' // just in case this change in img names
@@ -179,7 +179,7 @@ class Main {
             this.currentIncrementPlayer -= this.incrementPlayerStep;
         }
         if (this.player.y + this.currentIncrementPlayer < 0 ||
-            this.player.y + this.currentIncrementPlayer + this.player.height > this.gameScreen.height) {
+            this.player.y + this.currentIncrementPlayer + this.player.height +25 > this.gameScreen.height) { //canvas edge correction
                 this.currentIncrementPlayer = -this.currentIncrementPlayer;
         }
         this.player.moveVertical(this.currentIncrementPlayer) // minus since we're moving up
@@ -323,6 +323,11 @@ class Main {
         this.labsScore = 0; 
         this.coffeebarScoreDOM.innerText = 0
         this.labsScoreDOM.innerText = 0
+        this.progressLabBarDOM.style.height = `0%`
+        this.progressLabBarDOM.style.top = `100%`
+        this.progressCoffeeBarDOM.style.height = `0%`
+        this.progressCoffeeBarDOM.style.top = `100%`
+
 
         //clearInterval(# all intervals);
         clearInterval(this.drawIntervall); 
