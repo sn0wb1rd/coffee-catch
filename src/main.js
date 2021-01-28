@@ -8,11 +8,11 @@ source img: https://www.gameart2d.com/
 // why again not using selectElement by Idea insted of queryselector?
 
 class Main {
-    constructor() {        
+    constructor() {       
+        // game screens 
         this.startView = document.querySelector('#start-view')
         this.gameView = document.querySelector('#game-view')
         this.endView = document.querySelector('#end-view')
-
         this.gameScreen  = document.querySelector('#game-screen')        
         this.gs     = this.gameScreen.getContext('2d')
 
@@ -20,6 +20,8 @@ class Main {
         this.startBtn = document.querySelector('#start')
         this.startAgainBtn = document.querySelector('#start-again')
         this.endcontainerDOM = document.querySelector('#endcontainer span')
+        this.playerGreenDOM = document.querySelector('#player-green')
+        this.playerBlueDOM = document.querySelector('#player-blue')
      
         // score html elements
         this.coffeebarScoreDOM = document.querySelector('#coffeebar span')

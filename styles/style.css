@@ -13,7 +13,6 @@ h3 {
     color: #5C2E00;
     font-weight: bold;
     text-align:center;
-
 }
 
 h4 {
@@ -25,6 +24,11 @@ h4 {
 
 #startcontainer img {
     height: 4em;
+    margin-right: 0em;
+}
+
+#player-blue, #player-green {
+    height: 4em;    
 }
 
 #top-container {
@@ -54,10 +58,12 @@ h4 {
     display: flex;  
     justify-content: center;
     align-items: center;
-    margin: 5em;
-  
+    margin: 5em;  
 }
 
+#game-view h3, h4 {
+    text-align:left;
+}
 
 #end-view{
     display: center;  
@@ -74,8 +80,7 @@ h4 {
     border: 5px solid #925B00; 
     border-radius: 3px;
     padding: 1em;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    
 }
 
 #gamecontainer {
@@ -104,8 +109,6 @@ h4 {
     text-align: center;
     font-size: 15px;
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    
-
 }
 .button:hover {
     background: linear-gradient(#43753e 50%, #093905 50%);
@@ -113,6 +116,11 @@ h4 {
 .button:active {
     background: linear-gradient(#bd5a13 50%, #863c07 50%);
 }
+
+#radio-1 {
+    background: no-repeat url("../images/player_female_jump.png");
+}
+
 
 /* Progressbar */
 #coffee-progress{
