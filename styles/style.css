@@ -7,6 +7,10 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    font-size: 1em;
+}
+
 #top-container {
     display: flex;
     flex-direction: column;
@@ -61,7 +65,6 @@ h2 {
 #gamecontainer {
     height: 500px;
     width: 808px;
-    /* background-color: #f2ffe6; */
     border: 5px solid #925B00; 
     border-radius: 3px;
     background: no-repeat url("../images/bg_board_800x500.png");
@@ -75,7 +78,6 @@ h2 {
     width: 100px;
     height: 50px;
     line-height: 50px;
-    /* position: absolute; */
     left: 50px;
     top: 50px;
     color: #FFF;
@@ -99,18 +101,18 @@ h2 {
 /* Progressbar */
 #coffee-progress{
     position: absolute;
-    left:20%;
-    top:35%;
+    left: 20%;
+    top: 35%;
     width: 15%;
     height:60%;
     background:#E5E5E5;
-    border: none;
+     /* box-shadow:  rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
 }
 
 #lab-progress{
     position: absolute;
-    left:60%;
-    top:35%;
+    left: 60%;
+    top: 35%;
     width: 15%;
     height:60%;
     background:#E5E5E5;
@@ -118,9 +120,9 @@ h2 {
 }
 
 .progress-bar{
-    position:absolute;
-    top:50%; 
+    position: absolute;
+    top: 100%; 
     width: 100%;
-    height: 50%; 
+    height: 0%; 
     border: none;
 }

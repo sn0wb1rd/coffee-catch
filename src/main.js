@@ -34,6 +34,7 @@ class Main {
         this.drawTimeMs = 100;
         this.drawIntervall = null;
         this.maxCoffeeScore = 5;
+        this.maxLabScore = 8;
         
         // draw the player 
         this.player = null; // null = non-existing object
@@ -84,6 +85,7 @@ class Main {
         this.coffeeBar = 0;
         this.labsScore = 0;
         this.progressCoffeeBarDOM = document.querySelector('#coffee-progress-bar')
+        this.progressLabBarDOM = document.querySelector('#lab-progress-bar')
     }
 
     // -------------------------------------------------------
@@ -203,10 +205,7 @@ class Main {
             } else if (elem.checkCollision(this.player)) {
                 this.coffeeBar++
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
-                console.log(this.coffeeBar)
                 this.setCoffeeProgressBar(this.coffeeBar)
-
-                // set here the score of the coffeebar and labsscore
                 this.checkWinningConditions()
                 return false
             } else {
@@ -229,10 +228,10 @@ class Main {
             } else if (elem.checkCollision(this.player)) {
                 this.labsScore++
                 this.labsScoreDOM.innerText = this.labsScore
+                this.setLabProgressBar(this.labsScore)
                 this.coffeeBar--
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
-                               // set here the score of the coffeebar and labsscore
-                console.log('coffeeBar: ', this.coffeeBar)
+                this.setCoffeeProgressBar(this.coffeeBar)
                 this.checkWinningConditions()
                 return false
             } else {
@@ -251,19 +250,26 @@ class Main {
         };
     }
 
+    // TODO refactor these two functions for progressbar
     setCoffeeProgressBar(coffeeBarScore){
-        // get fraction of max coffees
-        let fraction = 100 / this.maxCoffeeScore
-        console.log('check progressBar ', fraction)
+        let fraction = (coffeeBarScore / this.maxCoffeeScore)
+        let valueHeight = Math.floor(fraction*100)
+        this.progressCoffeeBarDOM.style.height = `${valueHeight}%`
+        this.progressCoffeeBarDOM.style.top = `${100-valueHeight}%`
 
-        if (coffeeBarScore ===  1) {
-            console.log('check')
-            this.progressCoffeeBarDOM.style.height = '20%'
-            this.progressCoffeeBarDOM.style.top = '80%'
+        if(valueHeight >= 90 || valueHeight <= 20){ // set bar at red by crucial value
+            this.progressCoffeeBarDOM.classList.replace('bg-complete','bg-danger')
         } else {
-            console.log('bla')
+            this.progressCoffeeBarDOM.classList.replace('bg-danger','bg-complete')
         }
+    }
 
+    setLabProgressBar(labBarScore){
+        let fraction = (labBarScore / this.maxLabScore)
+        console.log('check')
+        let valueHeight = Math.floor(fraction*100)
+        this.progressLabBarDOM.style.height = `${valueHeight}%`
+        this.progressLabBarDOM.style.top = `${100-valueHeight}%`
     }
 
     gameOver(wingame){
@@ -292,7 +298,6 @@ class Main {
                 this.endcontainerDOM.innerText = "Aahw you loose.. coffee overload!"
             } else {
                 this.endcontainerDOM.innerText = "Aahw you loose.. you ran out of coffee"
-
             };
             this.startAgainBtn.innerText = "Try again?"
             console.log('aaah you loose') // test
