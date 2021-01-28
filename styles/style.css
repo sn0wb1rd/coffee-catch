@@ -47,13 +47,15 @@ h2 {
 }
 
 #scorecontainer {
+    position:relative;
     height: 500px;
     width: 200px;
     background-color: #e2c188;
-    border: 5px solid #AE791E; 
+    border: 5px solid #925B00; 
     border-radius: 3px;
     padding: 1em;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
 }
 
 #gamecontainer {
@@ -65,9 +67,10 @@ h2 {
     background: no-repeat url("../images/bg_board_800x500.png");
     background-clip: border-box;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
 }
 
+
+/* Buttons */
 .button {
     width: 100px;
     height: 50px;
@@ -91,4 +94,30 @@ h2 {
 }
 .button:active {
     background: linear-gradient(#bd5a13 50%, #863c07 50%);
+}
+
+/* Progressbar */
+#coffee-progress{
+    position: absolute;
+    left:60%;
+    top:35%;
+    width: 15%;
+    height:60%;
+    background:#E5E5E5;
+    border: none;
+}
+
+#lab-progress{
+    position: absolute;
+    left:20%;
+    top:35%;
+    width: 15%;
+    height:60%;
+    background:#E5E5E5;
+    border: none;
+}
+
+.progress-bar{
+    position:absolute;top:50%; width: 100%;height: 50%; 
+    border: none ;
 }

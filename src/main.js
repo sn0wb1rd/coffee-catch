@@ -54,26 +54,32 @@ class Main {
         // draw the coffeecup 
         this.coffeeCups = []
         this.coffeeCategory = "coffee"
-        this.coffeeCupProductionTimeMs = 1000
+        this.coffeeCupProductionTimeMs = 2000
         this.coffeeSize = [15, 20, 30, 40]
         this.coffeeAxisY = [100, 200, 300, 400]
         this.coffeeImg = document.createElement('img')
         this.coffeeImg.src = './images/coffeeCup.png'
         this.coffeeCupProductionIntervall = null;
 
+        this.coffeeTimeoutMs = 20;
+        this.coffeeIncrX = 1;
+        this.coffeeIncrXIntervall = null;
+        
+
         // draw the coffeecup (dummie object for time being)
         this.labBooks = []
         this.labBookCategory = "labbook"
-        this.labBookProductionTimeMs = 1000
+        //this.labBookProductionTimeMs = 1000 // for later
         this.labBookSize = [15, 20, 30, 40]
         this.labBookAxisY = [100, 200, 300, 400]
         this.labBookImg = document.createElement('img')
         this.labBookImg.src = './images/book.png'
         this.labBookCupProductionIntervall = null;
 
-        this.coffeeTimeoutMs = 20;
-        this.coffeeIncrX = 1;
-        this.coffeeIncrXIntervall = null;
+        this.labBookTimeoutMs = 20;
+        this.labBookIncrX = 2;
+        this.labBookIncrXIntervall = null;
+        
         
         //scorebords
         this.coffeeBar = 0;
@@ -131,13 +137,19 @@ class Main {
             this.produceLabBoook()
         }, this.coffeeCupProductionTimeMs)
 
-        // interval for moving the coffeecups ans labbooks
+        // interval for moving the labbooks
         this.coffeeIncrXIntervall = setInterval(() => {
             this.moveCoffeeCups()
-            this.moveLabBooks()
         }, this.coffeeTimeoutMs)
+
+        // interval for moving the coffeecups ans labbooks
+        this.labBookIncrXIntervall = setInterval(() => {
+            this.moveLabBooks()
+        }, this.labBookTimeoutMs)
         // -------------------------------------------------------------------------
     }
+
+    
 
     
 
@@ -145,9 +157,7 @@ class Main {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
         this.player.draw(this.gs) // draws the player rectangle from RecItem class
         this.coffeeCups.forEach((elem) => elem.draw(this.gs))
-        this.labBooks.forEach((elem) => elem.draw(this.gs))
-        
-        
+        this.labBooks.forEach((elem) => elem.draw(this.gs))           
     };
 
     movePlayer() {
@@ -199,7 +209,6 @@ class Main {
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
 
                 // set here the score of the coffeebar and labsscore
-                console.log('coffeeBar: ', this.coffeeBar)
                 this.checkWinningConditions()
                 return false
             } else {
@@ -211,7 +220,7 @@ class Main {
     // TODO make generic together with coffeecup
     moveLabBooks() {
         this.labBooks.forEach((elem) => {
-            elem.moveHorizontal(-this.coffeeIncrX)  // minus because it moves to the west
+            elem.moveHorizontal(-this.labBookIncrX)  // minus because it moves to the west
         })
 
         // filter out all the items that reached the west-border or collide with the player
@@ -226,7 +235,7 @@ class Main {
                 this.coffeebarScoreDOM.innerText = this.coffeeBar
 
                 // set here the score of the coffeebar and labsscore
-                console.log('coffeeBar: ', this.labsScore)
+                console.log('coffeeBar: ', this.coffeeBar)
                 this.checkWinningConditions()
                 return false
             } else {
@@ -237,11 +246,9 @@ class Main {
 
     checkWinningConditions(){
         if ((this.coffeeBar > 5) || (this.coffeeBar < 0)){
-            console.log('lost game') // test
             this.wingame = false
             this.gameOver(this.wingame)
         } else if (this.labsScore >= 8) {
-            console.log('won game') // test
             this.wingame = true
             this.gameOver(this.wingame)
         };
@@ -269,10 +276,10 @@ class Main {
             this.labsScore = 0;
 
         } else {            
-            if (this.coffeeBar = 5) {
+            if (this.coffeeBar == 5) {
                 this.endcontainerDOM.innerText = "Aahw you loose.. coffee overload!"
             } else {
-                this.endcontainerDOM.innerText = "Aahw you loose.. ran out of coffee"
+                this.endcontainerDOM.innerText = "Aahw you loose.. you ran out of coffee"
 
             };
             this.startAgainBtn.innerText = "Try again?"
@@ -287,7 +294,8 @@ class Main {
         clearInterval(this.drawIntervall); 
         clearInterval(this.moveIntervall);
         clearInterval(this.coffeeCupProductionIntervall);
-        clearInterval(this.coffeeIncrXIntervall);     
+        clearInterval(this.coffeeIncrXIntervall);    
+        clearInterval(this.labBookIncrXIntervall);   
         clearInterval(this.labScoreCupProductionIntervall);
     };
 }
