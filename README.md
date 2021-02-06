@@ -32,38 +32,38 @@ Coffee-catch is a perfect game for coffeelovers! Move up and down to grab the co
 - soundeffect: by catching items
 
 ## **Data structure**
-## **main.js**
-### main.start()
-- get setting radiobutton (choose player)
-- install eventlisteners for cursors (up, down, w, s)
-- create new ImgItem
-- setting intervals (drawing, moving player, creating and moving coffeecup and labbooks)
-### drawAllItems()
-### movePlayer()
-### produceCoffeeCup() 
-### produceLabBoook()
-### moveCoffeeCups() 
-- checks collision
-- change progressbars
-### moveLabBooks() (checks collision, change progressbars)
-### checkWinningConditions()
+### main.js
+- main.start()
+    - get setting radiobutton (choose player)
+    - install eventlisteners for cursors (up, down, w, s)
+    - create new ImgItem
+    - setting intervals (drawing, moving player, creating and moving coffeecup and labbooks)
+- drawAllItems()
+- movePlayer()
+- produceCoffeeCup() 
+- produceLabBoook()
+- moveCoffeeCups() 
+    - checks collision
+    - change progressbars
+- moveLabBooks() (checks collision, change progressbars)
+- checkWinningConditions()
 
-## **gameItem.js**
-### GameItem()
-- xw()
-- yh()
-- cornerCheck(otherGameItem)
-- checkCollision(otherGameItem)
-- move(xDistance, yDistance)
-- moveVertical(yDistance) 
-- moveHorizontal(xDistance)
-- setCoffeeProgressBar(coffeeBarScore)
-- setLabProgressBar(labBarScore)
-- gameOver()
-### RectItem
-- draw(canvas)
-### ImgItem()
-- draw(canvas)
+### gameItem.js
+- GameItem()
+    - xw()
+    - yh()
+    - cornerCheck(otherGameItem)
+    - checkCollision(otherGameItem)
+    - move(xDistance, yDistance)
+    - moveVertical(yDistance) 
+    - moveHorizontal(xDistance)
+    - setCoffeeProgressBar(coffeeBarScore)
+    - setLabProgressBar(labBarScore)
+    - gameOver()
+- RectItem
+    - draw(canvas)
+- ImgItem()
+    - draw(canvas)
 
 ## **States (screen transitions)**
 - gameView
