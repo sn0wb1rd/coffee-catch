@@ -8,9 +8,11 @@ class GameItem {
         this.category = category
     };
     // derivated value xw and xh insted of directly saving it
+    // right bound of object
     xw() {
         return this.x + this.width;
     };
+    // lower bound of object
     yh() {
         return this.y + this.height;
     };
@@ -46,6 +48,7 @@ class GameItem {
         return false
     };
     // do the cornercheck the otherway around (using previous method)
+    // returns boolean (true with collision)
     checkCollision(otherGameItem) {
         return this.cornerCheck(otherGameItem) || otherGameItem.cornerCheck(this)
     }

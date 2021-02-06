@@ -102,7 +102,7 @@ class Main {
             this.playerImg.src = './images/player_yellow.png' // just in case this change in img names
         }
 
-        // make sure the gamescreen is visible
+        // make sure the startbutton is not visible
         this.startBtn.style.display = 'none'
         
 
@@ -115,7 +115,7 @@ class Main {
                 this.isDownArrow = false;
             }
             else if (event.keyCode == 40 || event.key == "ArrowDown" ||
-                     event.keyCode == 83 || event.key == "ArrowDown"             
+                     event.keyCode == 83 || event.key == "S"             
                 ) {
                 this.isUpArrow = false;
                 this.isDownArrow = true;
@@ -134,7 +134,7 @@ class Main {
         // the intervals HAS to be in an function, otherwise 'this' falls out of scope..
         // TODO create one interval?
 
-        //drawing the player
+        //drawing of all the objects on the canvas
         this.drawIntervall = setInterval(() => {
             requestAnimationFrame(() => this.drawAllItems())
         }, this.drawTimeMs)
@@ -144,29 +144,30 @@ class Main {
             this.movePlayer()
         }, this.moveTimeMs)
 
-        // interval for creating coffeecups
+        // interval for creating coffeecups and the labbooks
         this.coffeeCupProductionIntervall = setInterval(() => {
             this.produceCoffeeCup()
             this.produceLabBoook()
         }, this.coffeeCupProductionTimeMs)
 
-        // interval for moving the labbooks
+        // interval for moving the coffeecups (appearing as 'speed' on the canvas)
         this.coffeeIncrXIntervall = setInterval(() => {
             this.moveCoffeeCups()
         }, this.coffeeTimeoutMs)
 
-        // interval for moving the coffeecups ans labbooks
+        // interval for moving the labbooks, faster than coffeecups (appearing as 'speed' on the canvas)
         this.labBookIncrXIntervall = setInterval(() => {
             this.moveLabBooks()
         }, this.labBookTimeoutMs)
         // -------------------------------------------------------------------------
     }   
 
+    // first clearing gamescreen, then drawing player, coffeecups and labbooks
     drawAllItems() {
         this.gs.clearRect(0, 0, this.gameScreen.width, this.gameScreen.height)
-        this.player.draw(this.gs) // draws the player rectangle from RecItem class
-        this.coffeeCups.forEach((elem) => elem.draw(this.gs))
-        this.labBooks.forEach((elem) => elem.draw(this.gs))
+        this.player.draw(this.gs)
+        this.coffeeCups.forEach((elem) => elem.draw(this.gs)) // empy array at start
+        this.labBooks.forEach((elem) => elem.draw(this.gs)) // empy array at start
     };
 
     movePlayer() {
@@ -182,6 +183,9 @@ class Main {
             this.player.y + this.currentIncrementPlayer + this.player.height +25 > this.gameScreen.height) { //canvas edge correction
                 this.currentIncrementPlayer = -this.currentIncrementPlayer;
         }
+        // moveVertical is always executed. When pressing button it increases. If releasing button, 
+        // currentIncrementPlayer stays the same (value). And therefore player keeps moving when no
+        // key is pressed. 
         this.player.moveVertical(this.currentIncrementPlayer) // minus since we're moving up
     };
     
@@ -261,10 +265,10 @@ class Main {
     checkWinningConditions(){
         if ((this.coffeeBar > this.maxCoffeeScore) || (this.coffeeBar < 0)){
             this.wingame = false
-            this.gameOver(this.wingame)
+            this.gameOver()
         } else if (this.labsScore >= 8) {
             this.wingame = true
-            this.gameOver(this.wingame)
+            this.gameOver()
         };
     }
 
@@ -290,7 +294,7 @@ class Main {
         this.progressLabBarDOM.style.top = `${100-valueHeight}%`
     }
 
-    gameOver(wingame){
+    gameOver(){
         console.log('game over')
         this.startView.style.display = 'none'
         this.gameView.style.display = 'none'
@@ -315,10 +319,11 @@ class Main {
             console.log('aaah you loose') // check                      
         }
         
-        // set values back to 0
+        // destroy the coffeeCups and labBooks array so they won't appear on the screen when you play again
         this.coffeeCups.splice(0, this.coffeeCups.length)
         this.labBooks.splice(0, this.labBooks.length)
         this.drawAllItems()
+        // set values back to 0
         this.coffeeBar = 0;
         this.labsScore = 0; 
         this.coffeebarScoreDOM.innerText = 0
@@ -330,6 +335,7 @@ class Main {
 
 
         //clearInterval(# all intervals);
+        // good to do some clean up (game is over, no action needed here)
         clearInterval(this.drawIntervall); 
         clearInterval(this.moveIntervall);
         clearInterval(this.coffeeCupProductionIntervall);
@@ -341,23 +347,25 @@ class Main {
 
 
 // -------------------------------------------------------------------
+// decrale outside so it can be accessed via the console.log
 let main;
 
 // TODOdo refactor style.displays
 
+// listener that starts with loading page
 window.addEventListener('load', () => {
     main = new Main()
+    // toggle between the three screens by DOM manipulation
     main.gameView.style.display = 'none'
     main.endView.style.display = 'none'
     main.startView.style.display = ''
-
 
     // start click event listener
     main.startBtn.addEventListener('click', () => {
         main.startView.style.display = 'none'
         main.endView.style.display = 'none'
         main.gameView.style.display = ''
-
+        // start the start() method in the main object
         main.start()
     })    
 
